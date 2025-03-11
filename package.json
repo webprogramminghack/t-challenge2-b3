@@ -1,0 +1,15 @@
+{
+  "name": "t-challenge2-b3",
+  "version": "1.0.0",
+  "description": "## Problem 1: Event Reminder with JSON Input",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
