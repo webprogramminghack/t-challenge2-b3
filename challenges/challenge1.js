@@ -9,12 +9,7 @@ function setEventReminder(eventJSON) {
 }
 
 // If you want to try the challenge in terminal, uncomment the code below
-// const eventJSON = `{
-//   "name": "Tech Conference",
-//   "date": "2023-12-15",
-//   "reminderTime": 5000 // 5 seconds
-// }`;
-
+// const eventJSON = `{"name": "Tech Conference", "date": "2025-12-15", "reminderTime": 5000}`;
 // setEventReminder(eventJSON);
 
 // Don't delete the code below

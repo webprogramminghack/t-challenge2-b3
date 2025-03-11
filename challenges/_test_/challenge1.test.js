@@ -1,29 +1,33 @@
-// main.test.js
 const setEventReminder = require('../challenge1.js');
 
 describe('setEventReminder', () => {
+  let consoleSpy;
+
   beforeAll(() => {
     jest.useFakeTimers();
+  });
+
+  beforeEach(() => {
+    consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.clearAllTimers();
   });
 
   afterAll(() => {
     jest.useRealTimers();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   test('logs a passed-date message if the event date is in the past', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
-
-    const eventJSON = JSON.stringify({
+    const pastEventJSON = JSON.stringify({
       name: 'Past Event',
       date: '2000-01-01',
       reminderTime: 5000,
     });
 
-    setEventReminder(eventJSON);
+    setEventReminder(pastEventJSON);
 
     expect(consoleSpy).toHaveBeenCalledWith(
       'The event date has already passed.'
@@ -31,25 +35,22 @@ describe('setEventReminder', () => {
   });
 
   test('schedules a reminder if the event date is in the future', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+    const futureDate = new Date(Date.now() + 10_000).toISOString();
 
-    const futureDate = new Date(Date.now() + 10000);
-    const dateString = futureDate.toISOString().split('T')[0];
-
-    const eventJSON = JSON.stringify({
+    const futureEventJSON = JSON.stringify({
       name: 'Future Event',
-      date: dateString,
+      date: futureDate,
       reminderTime: 5000,
     });
 
-    setEventReminder(eventJSON);
+    setEventReminder(futureEventJSON);
 
     expect(consoleSpy).not.toHaveBeenCalled();
 
-    jest.advanceTimersByTime(15000);
+    jest.advanceTimersByTime(15_000);
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      `Reminder: Future Event is on ${dateString}`
+      `Reminder: Future Event is on ${futureDate}`
     );
   });
 });
